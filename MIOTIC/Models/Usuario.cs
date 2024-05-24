@@ -16,6 +16,7 @@ namespace MIOTIC.Models
         [Required]
         public RolEnum Rol { get; set;}
 
+        //Un Usuario registra muchos contratos
         //relaciones  1------>*
         public virtual List<Contrato>? Contratos { get; set; }
     }
