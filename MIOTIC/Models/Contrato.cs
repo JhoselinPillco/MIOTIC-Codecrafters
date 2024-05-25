@@ -6,11 +6,11 @@ namespace MIOTIC.Models
     {
         [Key]
         public int Id { get; set; }
-        public string? NombreProycto { get; set; }
+        public string? NombreProyecto { get; set; }
         [Required]
-        public DateOnly FechaContrato { get;}
+        public DateOnly FechaContrato { get; set;  }
         [Required]
-        public DateOnly FechaEntrega { get; }
+        public DateOnly FechaEntrega { get; set; }
         [Required]
         public decimal Costo { get; set; }
         [Required]
