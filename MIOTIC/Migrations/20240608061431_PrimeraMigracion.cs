@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -48,7 +49,9 @@ namespace MIOTIC.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NombreProycto = table.Column<string>(type: "TEXT", nullable: true),
+                    NombreProyecto = table.Column<string>(type: "TEXT", nullable: true),
+                    FechaContrato = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    FechaEntrega = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Costo = table.Column<decimal>(type: "TEXT", nullable: false),
                     UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
