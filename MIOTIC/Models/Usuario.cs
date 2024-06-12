@@ -7,11 +7,11 @@ namespace MIOTIC.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required, MinLength(5)]
         public string? Email { get; set; }
-        [Required]
+        [Required, MinLength(5)]
         public string? Password { get; set; }
-        [Required]
+        [Required, MinLength(3)]
         public string?  Nombre { get; set; }
         [Required]
         public RolEnum Rol { get; set;}

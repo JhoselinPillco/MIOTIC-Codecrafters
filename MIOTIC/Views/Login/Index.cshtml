@@ -16,49 +16,84 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: white;
         }
 
         .login-card {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
+            border: none;
+        }
+
+        .header {
+            background-color: #6ea8fe;
+            color: white;
+            padding: 10px;
+            text-align: center;
         }
 
         .login-image {
             height: 100%;
             object-fit: cover;
+            width: 100%;
+        }
+
+        .card-body {
+            background-color: white;
+        }
+
+        .footer {
+            background-color: #6ea8fe;
+            height: 40px;
+        }
+
+        .login-label {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container login-container">
-        <div class="card login-card">
-            <div class="row no-gutters">
+    <div class="container-fluid login-container d-flex">
+        <div class="card flex-fill">
+            <div class="header">
+                <img src="C:\Users\DELL\Downloads" alt="Logo" class="float-left mr-3">
+                <h1 class="h2">MIOTIC</h1>
+            </div>
+            <div class="row flex-fill">
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h3 class="card-title mb-4">Login</h3>
-                        <form>
+                        <h2 class="card-title text-center mb-4">Inicio de Sesión</h2>
+                        <form asp-action="Login" asp-controller="Login" method="post"> 
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email" required>
+                                <label for="Email" >Correo Electrónico</label>
+                                <input type="Email" class="form-control" id="Email" name= "Email" placeholder="Ingresa tu Correo" required>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" required>
+                                <label for="Password" >Contraseña</label>
+                                <input type="Password" class="form-control" id="Password" name="Password" placeholder="Ingrese la Contraseña" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            
+                            <button type="button" class="btn btn-secondary">Volver</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
                         </form>
                     </div>
+                    @if (TempData["LoginError"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["LoginError"]</div>
+                    }
                 </div>
                 <div class="col-md-4">
-                    <img src="https://via.placeholder.com/300x300" class="img-fluid login-image" alt="Login Image">
+                    <img src="C:\Users\DELL\source\repos\MIOTIC\imagenes" class="img-fluid login-image" alt="Login Image">
                 </div>
             </div>
+            <div class="footer"></div>
         </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>*@
+   @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>*@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
 
