@@ -32,6 +32,12 @@
             text-align: center;
         }
 
+        .logo {
+            height: 30%;
+            object-fit: cover;
+            width: 30%;
+        }
+
         .login-image {
             height: 100%;
             object-fit: cover;
@@ -55,9 +61,10 @@
 <body>
     <div class="container-fluid login-container d-flex">
         <div class="card flex-fill">
-            <div class="header">
-                <img src="C:\Users\DELL\Downloads" alt="Logo" class="float-left mr-3">
-                <h1 class="h2">MIOTIC</h1>
+            
+            <div class="col-md-4">
+                <img src="~/images/Logo.png" class="img-fluid logo" alt="Logo">
+                <h2 class="card-title text-center mb-4">MIOTIC</h2>
             </div>
             <div class="row flex-fill">
                 <div class="col-md-8">
@@ -83,7 +90,7 @@
                     }
                 </div>
                 <div class="col-md-4">
-                    <img src="C:\Users\DELL\source\repos\MIOTIC\imagenes" class="img-fluid login-image" alt="Login Image">
+                    <img src="~/images/imagen.jpeg" class="img-fluid login-image" alt="Login Image">
                 </div>
             </div>
             <div class="footer"></div>
