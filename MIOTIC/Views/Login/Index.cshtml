@@ -8,99 +8,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .header, .footer {
+            background-color: #6ea8fe;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
+            color: black;
+            font-weight: bold;
+            font-size: 50px;
+        }
+
+        .logo {
+            height: 90px;
+        }
+
         .login-container {
-            height: 100vh;
+            height: calc(100% - 120px); 
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: white;
+            flex-direction: column;
         }
 
         .login-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
             max-width: 900px;
-            width: 100%;
-            border: none;
-        }
-
-        .header {
-            background-color: #6ea8fe;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .logo {
-            height: 30%;
-            object-fit: cover;
-            width: 30%;
-        }
-
-        .login-image {
-            height: 100%;
-            object-fit: cover;
-            width: 100%;
         }
 
         .card-body {
             background-color: white;
-        }
-
-        .footer {
-            background-color: #6ea8fe;
-            height: 40px;
+            width: 100%;
         }
 
         .login-label {
             font-weight: bold;
         }
+
+        .login-image {
+            height: auto;
+            object-fit: cover;
+            max-width: 250px; 
+            margin: auto;
+        }
+
+        .form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .form-column {
+            flex: 1;
+            max-width: 60%;
+        }
+
+        .image-column {
+            flex: 1;
+            max-width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
-    <div class="container-fluid login-container d-flex">
-        <div class="card flex-fill">
-            
-            <div class="col-md-4">
-                <img src="~/images/Logo.png" class="img-fluid logo" alt="Logo">
-                <h2 class="card-title text-center mb-4">MIOTIC</h2>
-            </div>
-            <div class="row flex-fill">
-                <div class="col-md-8">
+    <div class="header">
+        <img src="~/images/Logo.png" class="logo" alt="Logo">
+        <div class="header-title">MIOTIC</div>
+    </div>
+    <div class="login-container">
+        <div class="login-card">
+            <h2 class="card-title text-center mb-4">Inicio de Sesión</h2>
+            <div class="form-container">
+                <div class="form-column">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4">Inicio de Sesión</h2>
-                        <form asp-action="Login" asp-controller="Login" method="post"> 
+                        <form asp-action="Login" asp-controller="Login" method="post">
                             <div class="form-group">
-                                <label for="Email" >Correo Electrónico</label>
-                                <input type="Email" class="form-control" id="Email" name= "Email" placeholder="Ingresa tu Correo" required>
+                                <label for="Email" class="login-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="Email" name="Email" placeholder="Ingresa tu Correo" required>
                             </div>
                             <div class="form-group">
-                                <label for="Password" >Contraseña</label>
-                                <input type="Password" class="form-control" id="Password" name="Password" placeholder="Ingrese la Contraseña" required>
+                                <label for="Password" class="login-label">Contraseña</label>
+                                <input type="password" class="form-control" id="Password" name="Password" placeholder="Ingrese la Contraseña" required>
                             </div>
-                            
                             <button type="button" class="btn btn-secondary">Volver</button>
                             <button type="submit" class="btn btn-primary">Aceptar</button>
                         </form>
+                        @if (TempData["LoginError"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["LoginError"]</div>
+                        }
                     </div>
-                    @if (TempData["LoginError"] != null)
-                    {
-                        <div class="alert alert-danger">@TempData["LoginError"]</div>
-                    }
                 </div>
-                <div class="col-md-4">
+                <div class="image-column">
                     <img src="~/images/imagen.jpeg" class="img-fluid login-image" alt="Login Image">
                 </div>
             </div>
-            <div class="footer"></div>
         </div>
     </div>
-
-    <!-- Bootstrap JS and dependencies -->
+    <div class="footer"></div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-   @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>*@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

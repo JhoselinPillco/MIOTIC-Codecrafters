@@ -18,15 +18,11 @@ namespace MIOTIC.Controllers
         {
             _context = context;
         }
-
-        // GET: Contratos
         public async Task<IActionResult> Index()
         {
             var miContexto = _context.Contratos.Include(c => c.Cliente).Include(c => c.Usuario);
             return View(await miContexto.ToListAsync());
         }
-
-        // GET: Contratos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,17 +42,12 @@ namespace MIOTIC.Controllers
             return View(contrato);
         }
 
-        // GET: Contratos/Create
         public IActionResult Create()
         {
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nombre");
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email");
             return View();
         }
-
-        // POST: Contratos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NombreProyecto,FechaContrato,FechaEntrega,Costo,UsuarioId,ClienteId")] Contrato contrato)
@@ -71,8 +62,6 @@ namespace MIOTIC.Controllers
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", contrato.UsuarioId);
             return View(contrato);
         }
-
-        // GET: Contratos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,9 +79,6 @@ namespace MIOTIC.Controllers
             return View(contrato);
         }
 
-        // POST: Contratos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NombreProyecto,FechaContrato,FechaEntrega,Costo,UsuarioId,ClienteId")] Contrato contrato)
@@ -126,8 +112,6 @@ namespace MIOTIC.Controllers
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", contrato.UsuarioId);
             return View(contrato);
         }
-
-        // GET: Contratos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,8 +130,6 @@ namespace MIOTIC.Controllers
 
             return View(contrato);
         }
-
-        // POST: Contratos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

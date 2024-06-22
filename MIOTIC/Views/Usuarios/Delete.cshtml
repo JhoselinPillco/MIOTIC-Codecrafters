@@ -1,12 +1,12 @@
 ﻿@model MIOTIC.Models.Usuario
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar";
 }
 
-<h1>Delete</h1>
+<h1>Eliminar</h1>
 
-<h3>Seguro que quiere eliminar este usuario?</h3>
+<h3>Seguro que quiere eliminar </h3>
 <div>
     <h4>Usuario</h4>
     <hr />
@@ -39,7 +39,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Cancelar</a>
     </form>
 </div>

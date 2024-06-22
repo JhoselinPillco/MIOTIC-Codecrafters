@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +9,37 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MIOTIC.styles.css" asp-append-version="true" />
 </head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .header, .footer {
+        background-color: #6ea8fe;
+        height: 80px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .header-title {
+        flex: 1;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 50px;
+    }
+
+    .logo {
+        height: 90px;
+    }
+
+
+    </style>
 <body>
     <header>
+        
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MIOTIC</a>
@@ -31,13 +61,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar Sesion</a>
                         </li>
+                      
                     </ul>
                 </div>
             </div>
         </nav>
-        <div  class="col-md-4">
-            <img src="~/images/Logo.png" class="img-fluid logo" alt="Logo">
-            <h2 class="card-title text-center mb-4">MIOTIC</h2>
+
+        <div class="header">
+            <img src="~/images/Logo.png" class="logo" alt="Logo">
+            <div class="header-title">MIOTIC</div>
         </div>
     </header>
     <div class="container">

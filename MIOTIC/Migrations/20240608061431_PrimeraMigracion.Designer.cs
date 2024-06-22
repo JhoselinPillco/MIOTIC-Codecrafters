@@ -14,7 +14,6 @@ namespace MIOTIC.Migrations
     [Migration("20240608061431_PrimeraMigracion")]
     partial class PrimeraMigracion
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

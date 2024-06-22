@@ -18,14 +18,10 @@ namespace MIOTIC.Controllers
         {
             _contexto = contexto;
         }
-
-        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
             return View(await _contexto.Usuarios.ToListAsync());
         }
-
-        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,16 +38,10 @@ namespace MIOTIC.Controllers
 
             return View(usuario);
         }
-
-        // GET: Usuarios/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Email,Password,Nombre,Rol")] Usuario usuario)
@@ -64,8 +54,6 @@ namespace MIOTIC.Controllers
             }
             return View(usuario);
         }
-
-        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,10 +68,6 @@ namespace MIOTIC.Controllers
             }
             return View(usuario);
         }
-
-        // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Nombre,Rol")] Usuario usuario)
@@ -115,8 +99,6 @@ namespace MIOTIC.Controllers
             }
             return View(usuario);
         }
-
-        // GET: Usuarios/Delete/3
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,8 +115,6 @@ namespace MIOTIC.Controllers
 
             return View(usuario);
         }
-
-        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -148,7 +128,6 @@ namespace MIOTIC.Controllers
             await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool UsuarioExists(int id)
         {
             return _contexto.Usuarios.Any(e => e.Id == id);

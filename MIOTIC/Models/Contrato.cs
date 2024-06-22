@@ -14,6 +14,7 @@ namespace MIOTIC.Models
         [Required]
         public decimal Costo { get; set; }
         [Required]
+
         //relaciones  *--------->1
         public int UsuarioId { get; set; }
         public int ClienteId { get; set; }
