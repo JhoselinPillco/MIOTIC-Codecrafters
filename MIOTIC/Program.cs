@@ -5,28 +5,47 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<MiContexto>(options =>  {
+builder.Services.AddDbContext<MiContexto>(options => {
     options.UseSqlite(builder.Configuration.GetConnectionString("CadenaConexion"));
 });
+builder.Services.AddRazorPages();
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
+{
+    options.Cookie.Name = "MyCookieAuth";
+    options.LoginPath = "/Login/Index"; // Ruta al formulario de inicio de sesión
+    options.AccessDeniedPath = "/Account/AccessDenied"; // Ruta de acceso denegado
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+
+// Configurar una redirección de la ruta principal al archivo index.html
+app.MapGet("/", async context =>
+{
+    context.Response.Redirect("/index.html");
+});
+
+app.MapFallbackToFile("/index.html");
+app.MapFallbackToFile("/contacto.html");
+app.MapFallbackToFile("/servicios.html");
 
 app.Run();
