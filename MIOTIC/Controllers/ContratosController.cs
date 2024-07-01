@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MIOTIC.Contexto;
 using MIOTIC.Models;
-
+//Controles
 namespace MIOTIC.Controllers
 {
     public class ContratosController : Controller
