@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MIOTIC.Models.Usuario>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Usuarios del sistema</h1>
+<form asp-action="Search" asp-controller="Usuarios" method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="searchTerm" placeholder="Buscar usuarios">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </div>
+</form>
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo Usuario</a>
+</p>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                Contraseña
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Rol
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rol)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<li class="nav-item">
+    <a class="nav-link text-red" asp-area="" asp-controller="Contratos" asp-action="Index">Proyecto</a>
+</li>

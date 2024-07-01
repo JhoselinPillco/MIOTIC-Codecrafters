@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos - MIOTIC</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+            .logo img {
+                width: 40px;
+                height: auto;
+                margin-right: 10px;
+            }
+
+            .logo h1 {
+                margin: 0;
+                font-size: 20px;
+            }
+
+        .navbar {
+            display: flex;
+        }
+
+            .navbar a {
+                color: #ffffff;
+                text-decoration: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+            }
+
+                .navbar a:hover {
+                    background-color: #2980b9;
+                }
+
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+            .form-container h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group textarea {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .form-group textarea {
+                height: 100px;
+            }
+
+            .form-group .btn-submit {
+                background-color: #3498db;
+                color: #ffffff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+                .form-group .btn-submit:hover {
+                    background-color: #2980b9;
+                }
+
+        .contact-info {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .large-input {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="\images\Logo.png" alt="Logo">
+            <h1>MIOTIC</h1>
+        </div>
+        <nav class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="contacto.html">Contáctanos</a>
+            <a href="/Login/Index" class="btn-login">Iniciar Sesión</a>
+        </nav>
+    </header>
+
+    <div class="form-container">
+        <h2>Formulario de Contacto</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Número de Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="empresa">Empresa/Institución:</label>
+                <input type="text" id="empresa" name="empresa">
+            </div>
+            <div class="form-group">
+                <label for="asunto">Asunto:</label>
+                <input type="text" id="asunto" name="asunto" class="large-input" required>
+            </div>
+            <div class="form-group">
+                <label for="servicio">Servicio de Interés:</label>
+                <input type="text" id="servicio" name="servicio" class="large-input">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

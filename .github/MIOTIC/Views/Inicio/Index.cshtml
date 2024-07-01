@@ -1,0 +1,115 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla de Inicio - MIOTIC</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+            .logo img {
+                width: 40px;
+                height: auto;
+                margin-right: 10px;
+            }
+
+            .logo h1 {
+                margin: 0;
+                font-size: 20px;
+            }
+
+        .navbar {
+            display: flex;
+        }
+
+            .navbar a {
+                color: #ffffff;
+                text-decoration: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+            }
+
+                .navbar a:hover {
+                    background-color: #2980b9;
+                }
+
+            .navbar .btn-login {
+                background-color: #ffffff;
+                color: #3498db;
+                border: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+                .navbar .btn-login:hover {
+                    background-color: #f2f2f2;
+                }
+
+        .container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+        }
+
+            .container img {
+                width: 100%;
+                height: auto;
+                opacity: 0.8; /* ajustar la opacidad de la imagen de fondo */
+            }
+
+        .title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="\Users\Usuario\Pictures\946b218d-fd1a-4330-837d-48011f5bbd5b.jpg" alt="Logo">
+            <h1>MIOTIC</h1>
+        </div>
+        <nav class="navbar">
+            <a href="#">Inicio</a>
+            <!-- Eliminado el enlace a Sobre Nosotros -->
+            <a href="servicios.html">Servicios</a>
+            <a href="contacto.html">Contáctanos</a>
+            <a href="#" class="btn-login">Iniciar Sesión</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <img src="\Users\Usuario\Downloads\WhatsApp Image 2024-06-17 at 5.46.02 PM.jpeg" alt="Imagen de fondo">
+        <div class="title">SOLUCIONES DIGITALES PERSONALIZADAS PARA TU NEGOCIO</div>
+    </div>
+</body>
+</html>
