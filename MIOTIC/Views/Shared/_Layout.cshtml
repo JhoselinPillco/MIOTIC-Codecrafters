@@ -14,7 +14,7 @@
         height: 100%;
         margin: 0;
     }
-    .header, .footer {
+    .header  {
         background-color: #6ea8fe;
         height: 80px;
         width: 100%;
@@ -55,6 +55,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">clientes</a>
+                        </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -79,9 +86,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - MIOTIC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+      
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

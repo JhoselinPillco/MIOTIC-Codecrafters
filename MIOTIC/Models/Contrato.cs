@@ -6,6 +6,7 @@ namespace MIOTIC.Models
     {
         [Key]
         public int Id { get; set; }
+        
         public string? NombreProyecto { get; set; }
         [Required]
         public DateOnly FechaContrato { get; set;  }
@@ -16,10 +17,12 @@ namespace MIOTIC.Models
         [Required]
 
         //relaciones  *--------->1
-        public int UsuarioId { get; set; }
         public int ClienteId { get; set; }
-        public virtual Usuario? Usuario { get; set; }   
         public virtual Cliente? Cliente { get; set; }
+
+        public int UsuarioId { get; set; }
+        public virtual Usuario? Usuario { get; set; }
+
 
 
     }
