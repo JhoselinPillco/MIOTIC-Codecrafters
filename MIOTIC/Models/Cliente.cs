@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MIOTIC.Models
 {
@@ -13,8 +14,11 @@ namespace MIOTIC.Models
         [Required]
         public int Celular { get; set; }
         [Required]
-        public string? Foto { get;}
         public string? Email { get; set; }
+        public string? Foto { get; set; }
+        [NotMapped]
+        [Display(Name = "subir la foto")]
+        public IFormFile? FotoFile { get; set; }
 
         //relaciones  1------>*
         public virtual List<Contrato>? Contratos { get; set; }
