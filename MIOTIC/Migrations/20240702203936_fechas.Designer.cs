@@ -3,6 +3,7 @@ using System;
 using MIOTIC.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIOTIC.Migrations
 {
     [DbContext(typeof(MiContexto))]
-    partial class MiContextoModelSnapshot : ModelSnapshot
+    [Migration("20240702203936_fechas")]
+    partial class fechas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -55,7 +58,7 @@ namespace MIOTIC.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Costo")
-                        .HasColumnType("date");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("FechaContrato")
                         .HasColumnType("TEXT");
@@ -65,9 +68,6 @@ namespace MIOTIC.Migrations
 
                     b.Property<string>("NombreProyecto")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Numero")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("INTEGER");

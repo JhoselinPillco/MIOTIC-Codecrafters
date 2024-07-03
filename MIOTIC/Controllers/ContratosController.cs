@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MIOTIC.Contexto;
@@ -50,10 +51,12 @@ namespace MIOTIC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombreProyecto,FechaContrato,FechaEntrega,Costo,UsuarioId,ClienteId")] Contrato contrato)
+        public async Task<IActionResult> Create([Bind("Id,Numero,NombreProyecto,FechaContrato,FechaEntrega,Costo,UsuarioId,ClienteId")] Contrato contrato)
         {
             if (ModelState.IsValid)
             {
+               
+                contrato.Numero = GetNumero();
                 _context.Add(contrato);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -62,6 +65,14 @@ namespace MIOTIC.Controllers
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Email", contrato.UsuarioId);
             return View(contrato);
         }
+
+        private int GetNumero()
+        {
+            if (_context.Contratos.ToList().Count > 0)
+                return _context.Contratos.Max(i => i.Numero) + 1;
+            return 1;
+        }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

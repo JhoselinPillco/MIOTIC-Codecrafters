@@ -1,54 +1,120 @@
 ﻿@model MIOTIC.Models.Contrato
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RECIBO</title>
+    <link href="~/css/printer.css" rel="stylesheet" />
+    <script src="~/js/qr.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-<h1>Details</h1>
+        .contenedor {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-<div>
-    <h4>Contrato</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreProyecto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreProyecto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaContrato)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaContrato)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaEntrega)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaEntrega)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Costo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Costo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cliente.Nombre)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        h3, h1 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+            .row dd {
+                margin-left: 0;
+            }
+
+            .row .col-sm-10 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .row .col-sm-10 span {
+                    font-weight: bold;
+                }
+
+        .cliente-nombre {
+            font-size: 1.2em; 
+            font-weight: bold; 
+            margin-top: 10px;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body onload="window.print()" onafterprint="history.back()">
+    <div class="contenedor onlyPrint">
+        <div>
+            <h3>EMPRESA DE DESARROLLO WEB MIOTIC</h3>
+            <h3>ORURO-BOLIVIA</h3>
+            <h1>RECIBO: @Html.DisplayFor(model => model.Numero)</h1>
+        </div>
+
+        <hr />
+        <dl class="row">
+            <dd class="col-sm-10">
+                <span>Nombre del Proyecto:</span> @Html.DisplayFor(model => model.NombreProyecto)
+            </dd>
+            <dd class="col-sm-10">
+                <span>Fecha del Contrato:</span> @Html.DisplayFor(model => model.FechaContrato)
+            </dd>
+            <dd class="col-sm-10">
+                <span>Fecha de Entrega:</span> @Html.DisplayFor(model => model.FechaEntrega)
+            </dd>
+            <dd class="col-sm-10">
+                <span>Costo:</span> @Html.DisplayFor(model => model.Costo)
+            </dd>
+            <dd class="col-sm-10">
+                <span>Correo de Programador Encargado:</span> @Html.DisplayFor(model => model.Usuario.Email)
+            </dd>
+        </dl>
+        <p class="cliente-nombre">
+            <small>Nombre del Cliente:</small> @Html.DisplayFor(model => model.Cliente.Nombre)
+        </p>
+        <p class="cliente-nombre">
+            <small>C.I:</small> @Html.DisplayFor(model => model.Cliente.Ci)
+        </p>
+         @{
+                string qr = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}",
+                    Model.Numero,
+                    Model.NombreProyecto,
+                    Model.FechaContrato,
+                    Model.FechaEntrega,
+                    Model.Costo,
+                    Model.Usuario.Email,
+                    Model.Cliente.Nombre
+                );
+            }
+            <div id="qrcode"></div>
+            <script>
+                var qrcode = new QRCode("qrcode", {
+                    text: "@qr",
+                    width: 100,
+                    height: 100
+                });
+            </script>
+        </div>
+    </body>
+</html>

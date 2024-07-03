@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\OOSOAS\Controllers\" />
+    <Folder Include="Areas\OOSOAS\Data\" />
+    <Folder Include="Areas\OOSOAS\Models\" />
+    <Folder Include="Areas\OOSOAS\Views\" />
     <Folder Include="wwwroot\fotos\" />
   </ItemGroup>
 

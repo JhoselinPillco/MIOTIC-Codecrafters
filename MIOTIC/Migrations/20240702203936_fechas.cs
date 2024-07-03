@@ -5,7 +5,7 @@
 namespace MIOTIC.Migrations
 {
     /// <inheritdoc />
-    public partial class Clientescorreccion : Migration
+    public partial class fechas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

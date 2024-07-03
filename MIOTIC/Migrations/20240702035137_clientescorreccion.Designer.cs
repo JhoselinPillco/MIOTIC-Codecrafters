@@ -12,7 +12,7 @@ namespace MIOTIC.Migrations
 {
     [DbContext(typeof(MiContexto))]
     [Migration("20240702035137_clientescorreccion")]
-    partial class clientescorreccion
+    partial class Clientescorreccion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

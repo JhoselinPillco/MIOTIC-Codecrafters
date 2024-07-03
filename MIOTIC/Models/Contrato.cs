@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MIOTIC.Models
 {
@@ -9,10 +10,12 @@ namespace MIOTIC.Models
         
         public string? NombreProyecto { get; set; }
         [Required]
-        public DateOnly FechaContrato { get; set;  }
+        public DateTime FechaContrato { get; set;  }
         [Required]
-        public DateOnly FechaEntrega { get; set; }
+        public DateTime FechaEntrega { get; set; }
         [Required]
+        public int Numero { get; set; }
+        [Column(TypeName = "date")]
         public decimal Costo { get; set; }
         [Required]
 

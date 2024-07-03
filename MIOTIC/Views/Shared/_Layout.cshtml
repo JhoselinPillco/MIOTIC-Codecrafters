@@ -55,21 +55,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
-
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">clientes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index">Contrato</a>
                         </li>
-
-
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar Sesion</a>
-                        </li>
-                      
                     </ul>
+                    <div class="d-flex">
+                        <span class="navbar-text">
+                         Nombre de Usuario
+                        </span>
+
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar Sesion</a>
+                    </div>
                 </div>
             </div>
         </nav>
