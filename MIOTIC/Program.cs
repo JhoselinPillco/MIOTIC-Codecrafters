@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MIOTIC.Contexto;
 
@@ -16,6 +17,14 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
     options.LoginPath = "/Login/Index"; // Ruta al formulario de inicio de sesión
     options.AccessDeniedPath = "/Account/AccessDenied"; // Ruta de acceso denegado
 });
+//Cookies, para usuarios 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.LoginPath = "/Login/Index"; //tal vez cambiar al del hans
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        option.AccessDeniedPath = "/Home/Privacy";
+    });
 
 var app = builder.Build();
 
