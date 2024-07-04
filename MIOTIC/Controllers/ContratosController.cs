@@ -11,7 +11,7 @@ using MIOTIC.Models;
 //Controles
 namespace MIOTIC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class ContratosController : Controller
     {
         private readonly MiContexto _context;

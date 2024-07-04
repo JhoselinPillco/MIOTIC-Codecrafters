@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos - MIOTIC</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .navbar {
+            display: flex;
+        }
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+        }
+        .navbar a:hover {
+            background-color: #2980b9;
+        }
+        .container {
+            padding: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .datagrid {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .datagrid th, .datagrid td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .datagrid th {
+            background-color: #f2f2f2;
+        }
+        .datagrid input, .datagrid button, .datagrid select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .datagrid button {
+            background-color: #3498db;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .datagrid button:hover {
+            background-color: #2980b9;
+        }
+        .btn-realizado {
+            background-color: #2ecc71 !important;
+        }
+        .separator {
+            height: 20px;
+        }
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .top-buttons a {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .top-buttons a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/Logo.png" alt="Logo">
+            <h1>MIOTIC</h1>
+        </div>
+        <nav class="navbar">
+            <a href="index1.html">Proyecto</a>
+            <a href="equipos.html" class="btn-equipos">Equipos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="top-buttons">
+            <h2 class="title">EQUIPOS</h2>
+            <a href="juniors.html">Registrar Integrantes</a>
+        </div>
+        <table class="datagrid">
+            <thead>
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Tarea</th>
+                    <th>Asunto</th>
+                    <th>Equipo</th>
+                    <th>Delegar</th>
+                    <th>Realizado</th>
+                </tr>
+            </thead>
+            <tbody id="equiposBody">
+                <!-- Las filas se llenarán dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function cargarProyectos() {
+            const proyectosGuardados = JSON.parse(localStorage.getItem('proyectosGuardados')) || [];
+            const equiposRegistrados = JSON.parse(localStorage.getItem('equiposRegistrados')) || [];
+            const equiposBody = document.getElementById('equiposBody');
+            equiposBody.innerHTML = ''; // Limpiar las filas existentes antes de recargar
+
+            proyectosGuardados.forEach(proyecto => {
+                for (let i = 1; i <= 5; i++) {
+                    const tareaId = `${proyecto.id}_${i}`;
+                    const asunto = localStorage.getItem(`asunto${tareaId}`) || '';
+                    const equipo = localStorage.getItem(`equipo${tareaId}`) || '';
+                    const realizado = localStorage.getItem(`realizado${tareaId}`) === 'true';
+
+                    const selectOptions = equiposRegistrados.length > 0
+                        ? equiposRegistrados.map(equipo => `<option value="${equipo.nombreEquipo}">${equipo.nombreEquipo}</option>`).join('')
+                        : '<option value="">sin equipos</option>';
+
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${proyecto.proyecto}</td>
+                        <td>Tarea ${i}</td>
+                        <td><input type="text" id="asunto${tareaId}" value="${asunto}"></td>
+                        <td>
+                            <select id="equipo${tareaId}">
+                                <option value="${equipo}">${equipo}</option>
+                                ${selectOptions}
+                            </select>
+                        </td>
+                        <td><button onclick="guardarTarea('${proyecto.id}', ${i})">Delegar</button></td>
+                        <td><button onclick="realizarTarea('${proyecto.id}', ${i})" id="btnRealizado${tareaId}" ${realizado ? 'class="btn-realizado"' : ''}>Realizado</button></td>
+                    `;
+                    equiposBody.appendChild(fila);
+                }
+                const separacion = document.createElement('tr');
+                separacion.innerHTML = `<td colspan="6" class="separator"><hr></td>`;
+                equiposBody.appendChild(separacion);
+            });
+        }
+
+        function guardarTarea(proyectoId, tareaId) {
+            const asunto = document.getElementById(`asunto${proyectoId}_${tareaId}`).value;
+            const equipo = document.getElementById(`equipo${proyectoId}_${tareaId}`).value;
+            
+            localStorage.setItem(`asunto${proyectoId}_${tareaId}`, asunto);
+            localStorage.setItem(`equipo${proyectoId}_${tareaId}`, equipo);
+
+            alert(`Tarea ${tareaId} del proyecto ${proyectoId} delegada a: ${equipo} con asunto: ${asunto}`);
+        }
+
+        function realizarTarea(proyectoId, tareaId) {
+            const btnRealizado = document.getElementById(`btnRealizado${proyectoId}_${tareaId}`);
+            if (!btnRealizado.classList.contains('btn-realizado')) {
+                btnRealizado.classList.add('btn-realizado');
+                localStorage.setItem(`realizado${proyectoId}_${tareaId}`, true);
+
+                let proyectosGuardados = JSON.parse(localStorage.getItem('proyectosGuardados')) || [];
+                proyectosGuardados.forEach(proyecto => {
+                    if (proyecto.id === proyectoId) {
+                        proyecto.tareasRealizadas = proyecto.tareasRealizadas || 0;
+                        proyecto.tareasRealizadas = Math.min(proyecto.tareasRealizadas + 1, 5);
+                    }
+                });
+                localStorage.setItem('proyectosGuardados', JSON.stringify(proyectosGuardados));
+
+                window.dispatchEvent(new Event('storage'));
+            }
+        }
+
+        function actualizarEquiposRegistrados() {
+            const equiposRegistrados = JSON.parse(localStorage.getItem('equiposRegistrados')) || [];
+            const selects = document.querySelectorAll('select[id^="equipo"]');
+            selects.forEach(select => {
+                const currentEquipo = select.value;
+                select.innerHTML = equiposRegistrados.length > 0
+                    ? equiposRegistrados.map(equipo => `<option value="${equipo.nombreEquipo}">${equipo.nombreEquipo}</option>`).join('')
+                    : '<option value="">sin equipos</option>';
+                if (equiposRegistrados.some(equipo => equipo.nombreEquipo === currentEquipo)) {
+                    select.value = currentEquipo;
+                } else {
+                    select.value = '';
+                }
+            });
+        }
+
+        window.onload = function() {
+            cargarProyectos();
+            actualizarEquiposRegistrados();
+        };
+
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'equiposRegistrados' || event.key === 'proyectosGuardados') {
+                cargarProyectos();
+                actualizarEquiposRegistrados();
+            }
+        });
+    </script>
+</body>
+</html>

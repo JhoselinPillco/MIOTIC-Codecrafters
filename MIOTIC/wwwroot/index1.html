@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos - MIOTIC</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+            .logo img {
+                width: 40px;
+                height: auto;
+                margin-right: 10px;
+            }
+
+            .logo h1 {
+                margin: 0;
+                font-size: 20px;
+            }
+
+        .navbar {
+            display: flex;
+        }
+
+            .navbar a {
+                color: #ffffff;
+                text-decoration: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+            }
+
+                .navbar a:hover {
+                    background-color: #2980b9;
+                }
+
+            .navbar .btn-equipos {
+                background-color: #ffffff;
+                color: #3498db;
+                border: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+                .navbar .btn-equipos:hover {
+                    background-color: #f2f2f2;
+                }
+
+        .container {
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .datagrid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            .datagrid th, .datagrid td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .datagrid th {
+                background-color: #f2f2f2;
+            }
+
+            .datagrid input, .datagrid button {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .datagrid button {
+                background-color: #3498db;
+                color: #ffffff;
+                cursor: pointer;
+            }
+
+                .datagrid button:hover {
+                    background-color: #2980b9;
+                }
+
+        .progress-bar {
+            margin-top: 20px;
+            width: 100%;
+            height: 25px;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+            .progress-bar div {
+                height: 100%;
+                width: 0;
+                background-color: #3498db;
+                border-radius: 4px;
+                transition: width 0.4s;
+            }
+
+        .table-saved {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .table-saved th, .table-saved td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table-saved th {
+                background-color: #f2f2f2;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/Logo.png" alt="Logo">
+            <h1>MIOTIC</h1>
+        </div>
+        <nav class="navbar">
+            <a href="index1.html">Proyecto</a>
+            <a href="equipos.html" class="btn-equipos">Equipos</a>
+            <a href="/Login/Index" class="btn-equipos">Salir</a>
+
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="title">PROYECTOS</h2>
+        <table class="datagrid">
+            <thead>
+                <tr>
+                    <th>Proyectos</th>
+                    <th>Equipos</th>
+                    <th>Barra de tareas</th>
+                    <th>Guardar</th>
+                </tr>
+            </thead>
+            <tbody id="proyectosBody">
+                <tr>
+                    <td><input type="text" id="proyecto1" name="proyecto1"></td>
+                    <td><input type="text" id="equipo1" name="equipo1"></td>
+                    <td><div class="progress-bar"><div id="progress1"></div></div></td>
+                    <td><button onclick="guardarCambios(1)">Guardar</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Proyectos Guardados</h3>
+        <table class="table-saved" id="guardados">
+            <thead>
+                <tr>
+                    <th>Proyectos</th>
+                    <th>Equipos</th>
+                    <th>Barra de tareas</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="guardadosBody">
+                <!-- Datos guardados aparecerán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function guardarCambios(id) {
+            const proyecto = document.getElementById(proyecto${ id }).value;
+            const equipo = document.getElementById(equipo${ id }).value;
+
+            if (proyecto && equipo) {
+                const guardadosBody = document.getElementById('guardadosBody');
+                const progressId = progressSaved${ Date.now()
+            };
+            const nuevoGuardado = document.createElement('tr');
+            nuevoGuardado.innerHTML = `
+                            <td>${proyecto}</td>
+                            <td>${equipo}</td>
+                            <td><div class="progress-bar"><div id="${progressId}"></div></div></td>
+                            <td><button onclick="eliminarProyecto('${progressId}')">Eliminar</button></td>
+                        `;
+            guardadosBody.appendChild(nuevoGuardado);
+
+            // Guardar en localStorage para pasar a equipos.html
+            let proyectosGuardados = JSON.parse(localStorage.getItem('proyectosGuardados')) || [];
+            proyectosGuardados.push({ id: progressId, proyecto, equipo, progressId, tareasRealizadas: 0 });
+            localStorage.setItem('proyectosGuardados', JSON.stringify(proyectosGuardados));
+
+            // Limpiar los campos de entrada
+            document.getElementById(proyecto${ id }).value = '';
+            document.getElementById(equipo${ id }).value = '';
+
+            // Despachar evento de almacenamiento
+            window.dispatchEvent(new Event('storage'));
+        }
+            }
+
+        function eliminarProyecto(progressId) {
+            // Eliminar de la tabla de proyectos guardados
+            const filaGuardado = event.target.parentElement.parentElement;
+            filaGuardado.remove();
+
+            // Eliminar de localStorage
+            let proyectosGuardados = JSON.parse(localStorage.getItem('proyectosGuardados')) || [];
+            proyectosGuardados = proyectosGuardados.filter(proyecto => proyecto.id !== progressId);
+            localStorage.setItem('proyectosGuardados', JSON.stringify(proyectosGuardados));
+
+            // Eliminar tareas asociadas
+            for (let i = 1; i <= 5; i++) {
+                localStorage.removeItem(asunto${ progressId }_${ i });
+                localStorage.removeItem(equipo${ progressId }_${ i });
+                localStorage.removeItem(realizado${ progressId }_${ i });
+            }
+
+            // Eliminar de la tabla de proyectos activos
+            const proyectosBody = document.getElementById('proyectosBody');
+            const filas = proyectosBody.getElementsByTagName('tr');
+            for (let i = 0; i < filas.length; i++) {
+                const inputs = filas[i].getElementsByTagName('input');
+                if (inputs.length > 0) {
+                    const proyectoInput = inputs[0];
+                    if (proyectoInput.id === proyecto${ progressId }) {
+                        proyectosBody.deleteRow(i);
+                        break;
+                    }
+                }
+            }
+
+            // Despachar evento de almacenamiento
+            window.dispatchEvent(new Event('storage'));
+        }
+
+        window.onload = function () {
+            const proyectosGuardados = JSON.parse(localStorage.getItem('proyectosGuardados')) || [];
+            const guardadosBody = document.getElementById('guardadosBody');
+            guardadosBody.innerHTML = '';
+            proyectosGuardados.forEach(proyecto => {
+                const progressId = proyecto.id;
+                const guardado = document.createElement('tr');
+                guardado.innerHTML = `
+                            <td>${proyecto.proyecto}</td>
+                            <td>${proyecto.equipo}</td>
+                            <td><div class="progress-bar"><div id="${progressId}" style="width: ${(proyecto.tareasRealizadas * 20)}%"></div></div></td>
+                            <td><button onclick="eliminarProyecto('${proyecto.id}')">Eliminar</button></td>
+                        `;
+                guardadosBody.appendChild(guardado);
+            });
+
+            window.addEventListener('storage', function (event) {
+                if (event.key === 'proyectosGuardados') {
+                    const updatedProjects = JSON.parse(event.newValue);
+                    const guardadosBody = document.getElementById('guardadosBody');
+                    guardadosBody.innerHTML = '';
+                    updatedProjects.forEach(proyecto => {
+                        const progressId = proyecto.id;
+                        const guardado = document.createElement('tr');
+                        guardado.innerHTML = `
+                                    <td>${proyecto.proyecto}</td>
+                                    <td>${proyecto.equipo}</td>
+                                    <td><div class="progress-bar"><div id="${progressId}" style="width: ${(proyecto.tareasRealizadas * 20)}%"></div></div></td>
+                                    <td><button onclick="eliminarProyecto('${proyecto.id}')">Eliminar</button></td>
+                                `;
+                        guardadosBody.appendChild(guardado);
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

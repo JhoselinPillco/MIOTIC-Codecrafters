@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Integrantes - MIOTIC</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .navbar {
+            display: flex;
+        }
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+        }
+        .navbar a:hover {
+            background-color: #2980b9;
+        }
+        .container {
+            padding: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #2980b9;
+        }
+        .table-saved {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table-saved th, .table-saved td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .table-saved th {
+            background-color: #f2f2f2;
+        }
+        .table-saved button {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .table-saved button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/Logo.png" alt="Logo">
+            <h1>MIOTIC</h1>
+        </div>
+        <nav class="navbar">
+            <a href="index1.html">Proyecto</a>
+            <a href="equipos.html" class="btn-equipos">Equipos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="title">Registrar Integrantes del Equipo</h2>
+        <div class="form-group">
+            <label for="nombreEquipo">Nombre del Equipo</label>
+            <input type="text" id="nombreEquipo" placeholder="Ingrese el nombre del equipo">
+        </div>
+        <div class="form-group">
+            <label for="numeroIntegrantes">Número de Integrantes</label>
+            <input type="number" id="numeroIntegrantes" placeholder="Ingrese el número de integrantes">
+        </div>
+        <div class="form-group">
+            <label for="integrantes">Integrantes</label>
+            <textarea id="integrantes" rows="5" placeholder="Ingrese los nombres y especialidades de los integrantes, uno por línea"></textarea>
+        </div>
+        <div class="form-group">
+            <button onclick="guardarEquipo()">Guardar Equipo</button>
+        </div>
+        <h3>Equipos Registrados</h3>
+        <table class="table-saved">
+            <thead>
+                <tr>
+                    <th>Nombre del Equipo</th>
+                    <th>Número de Integrantes</th>
+                    <th>Integrantes</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="equiposRegistradosBody">
+                <!-- Datos guardados aparecerán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function guardarEquipo() {
+            const nombreEquipo = document.getElementById('nombreEquipo').value;
+            const numeroIntegrantes = document.getElementById('numeroIntegrantes').value;
+            const integrantes = document.getElementById('integrantes').value;
+
+            if (nombreEquipo && numeroIntegrantes && integrantes) {
+                const equiposRegistradosBody = document.getElementById('equiposRegistradosBody');
+                const nuevoRegistro = document.createElement('tr');
+                nuevoRegistro.innerHTML = `
+                    <td>${nombreEquipo}</td>
+                    <td>${numeroIntegrantes}</td>
+                    <td>${integrantes.replace(/\n/g, '<br>')}</td>
+                    <td><button onclick="eliminarEquipo('${nombreEquipo}')">Eliminar</button></td>
+                `;
+                equiposRegistradosBody.appendChild(nuevoRegistro);
+
+                // Guardar en localStorage
+                let equiposRegistrados = JSON.parse(localStorage.getItem('equiposRegistrados')) || [];
+                equiposRegistrados.push({ nombreEquipo, numeroIntegrantes, integrantes });
+                localStorage.setItem('equiposRegistrados', JSON.stringify(equiposRegistrados));
+
+                // Limpiar los campos de entrada
+                document.getElementById('nombreEquipo').value = '';
+                document.getElementById('numeroIntegrantes').value = '';
+                document.getElementById('integrantes').value = '';
+
+                // Despachar evento de almacenamiento
+                window.dispatchEvent(new Event('storage'));
+            }
+        }
+
+        function eliminarEquipo(nombreEquipo) {
+            const fila = event.target.parentElement.parentElement;
+            fila.remove();
+
+            let equiposRegistrados = JSON.parse(localStorage.getItem('equiposRegistrados')) || [];
+            equiposRegistrados = equiposRegistrados.filter(equipo => equipo.nombreEquipo !== nombreEquipo);
+            localStorage.setItem('equiposRegistrados', JSON.stringify(equiposRegistrados));
+
+            window.dispatchEvent(new Event('storage'));
+        }
+
+        window.onload = function() {
+            const equiposRegistrados = JSON.parse(localStorage.getItem('equiposRegistrados')) || [];
+            const equiposRegistradosBody = document.getElementById('equiposRegistradosBody');
+            equiposRegistrados.forEach(equipo => {
+                const nuevoRegistro = document.createElement('tr');
+                nuevoRegistro.innerHTML = `
+                    <td>${equipo.nombreEquipo}</td>
+                    <td>${equipo.numeroIntegrantes}</td>
+                    <td>${equipo.integrantes.replace(/\n/g, '<br>')}</td>
+                    <td><button onclick="eliminarEquipo('${equipo.nombreEquipo}')">Eliminar</button></td>
+                `;
+                equiposRegistradosBody.appendChild(nuevoRegistro);
+            });
+
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'equiposRegistrados') {
+                    const updatedEquipos = JSON.parse(event.newValue);
+                    equiposRegistradosBody.innerHTML = '';
+                    updatedEquipos.forEach(equipo => {
+                        const nuevoRegistro = document.createElement('tr');
+                        nuevoRegistro.innerHTML = `
+                            <td>${equipo.nombreEquipo}</td>
+                            <td>${equipo.numeroIntegrantes}</td>
+                            <td>${equipo.integrantes.replace(/\n/g, '<br>')}</td>
+                            <td><button onclick="eliminarEquipo('${equipo.nombreEquipo}')">Eliminar</button></td>
+                        `;
+                        equiposRegistradosBody.appendChild(nuevoRegistro);
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

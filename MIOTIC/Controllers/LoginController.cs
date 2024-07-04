@@ -60,6 +60,3 @@ namespace MIOTIC.Controllers
 
     }
 }
-
-
-

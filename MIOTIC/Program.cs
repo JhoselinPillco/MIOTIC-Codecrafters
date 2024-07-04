@@ -54,7 +54,7 @@ app.MapGet("/", async context =>
 });
 
 app.MapFallbackToFile("/index.html");
-app.MapFallbackToFile("/contacto.html");
+app.MapFallbackToFile("/contactos.html");
 app.MapFallbackToFile("/servicios.html");
 
 app.Run();
