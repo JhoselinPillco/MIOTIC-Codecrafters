@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using MIOTIC.Models;
 
 namespace MIOTIC.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class ClientesController : Controller
     {
         private readonly MiContexto _context;

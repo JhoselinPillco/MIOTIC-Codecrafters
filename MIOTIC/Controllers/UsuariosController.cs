@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +11,15 @@ using MIOTIC.Models;
 
 namespace MIOTIC.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class UsuariosController : Controller
     {
         private readonly MiContexto _contexto;
-
-        public UsuariosController(MiContexto contexto)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UsuariosController(MiContexto contexto, IWebHostEnvironment webHostEnvironment)
         {
             _contexto = contexto;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> Index()
         {
@@ -70,7 +73,7 @@ namespace MIOTIC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Nombre,Rol")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Nombre,Rol,FotoFile")] Usuario usuario)
         {
             if (id != usuario.Id)
             {
@@ -81,6 +84,10 @@ namespace MIOTIC.Controllers
             {
                 try
                 {
+                    if (usuario.FotoFile != null)
+                    {
+                        await SubirFoto(usuario);
+                    }
                     _contexto.Update(usuario);
                     await _contexto.SaveChangesAsync();
                 }
@@ -99,6 +106,20 @@ namespace MIOTIC.Controllers
             }
             return View(usuario);
         }
+
+        private async Task SubirFoto(Usuario usuario)
+        {
+            //Para las fotos
+            string wwRootPath = _webHostEnvironment.WebRootPath;
+            string extension = Path.GetExtension(usuario.FotoFile!.FileName);
+            string nombreFoto = $"{usuario.Id}{extension}";
+            usuario.Foto = nombreFoto;
+
+            string path = Path.Combine($"{wwRootPath}/fotos/", nombreFoto);
+            var fileStream = new FileStream(path, FileMode.Create);
+            await usuario.FotoFile.CopyToAsync(fileStream);
+        }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,3 +155,7 @@ namespace MIOTIC.Controllers
         }
     }
 }
+
+
+
+
